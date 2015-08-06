@@ -1,0 +1,16 @@
+{
+    "name": "littleninja/framework",
+    "description": "Simple MVC framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Stoimenov",
+            "email": "alexander.stoimenov@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "LittleNinja\\": "src/"
+        }
+    }
+}
