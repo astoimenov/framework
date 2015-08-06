@@ -12,5 +12,14 @@
         "psr-4": {
             "LittleNinja\\": "src/"
         }
-    }
+    },
+    "require": {
+        "astoimenov/framework": "master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:astoimenov/framework.git"
+        }
+    ]
 }
