@@ -1,5 +1,6 @@
 {
     "name": "littleninja/framework",
+    "version": "1.0",
     "description": "Simple MVC framework",
     "license": "MIT",
     "authors": [
