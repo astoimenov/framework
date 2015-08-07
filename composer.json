@@ -3,7 +3,8 @@
     "description": "Simple MVC framework",
     "keywords": [
         "php",
-        "framework"
+        "framework",
+        "mvc"
     ],
     "license": "MIT",
     "authors": [
