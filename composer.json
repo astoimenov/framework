@@ -1,6 +1,10 @@
 {
     "name": "littleninja/framework",
     "description": "Simple MVC framework",
+    "keywords": [
+        "php",
+        "framework"
+    ],
     "license": "MIT",
     "authors": [
         {
