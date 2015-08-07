@@ -33,7 +33,7 @@ class App {
         if ($this->router instanceof Routers\IRouter) {
             $this->frontController->setRouter($this->router);
         } elseif ($this->router === 'JsonRPCRouter') {
-            // $this->frontController->setRouter(new Routers\JsonRPCRouter());
+            $this->frontController->setRouter(new Routers\JsonRPCRouter());
         } elseif ($this->router === 'CLIRouter') {
             // $this->frontController->setRouter(new Routers\CLIRouter());
         } else {

@@ -1,12 +1,16 @@
 {
     "name": "littleninja/framework",
-    "version": "1.0",
     "description": "Simple MVC framework",
+    "keywords": [
+        "php",
+        "framework",
+        "mvc"
+    ],
     "license": "MIT",
     "authors": [
         {
             "name": "Alexander Stoimenov",
-            "email": "alexander.stoimenov@outlook.com"
+            "email": "admin@astoimenov.eu"
         }
     ],
     "autoload": {
@@ -21,6 +25,10 @@
         }
     ],
     "require": {
-    	"php-activerecord/php-activerecord": "1.1.*"
+    	"php-activerecord/php-activerecord": "1.1.*",
+    	"phpmailer/phpmailer": "~5.2",
+    	"nesbot/carbon": "~1.18",
+        "danielstjules/stringy": "~1.9",
+        "vlucas/phpdotenv": "^2.0"
     }
 }
