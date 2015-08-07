@@ -1,5 +1,6 @@
 {
     "name": "littleninja/framework",
+    "version": "1.0",
     "description": "Simple MVC framework",
     "license": "MIT",
     "authors": [
@@ -15,7 +16,7 @@
     },
     "repositories": [
         {
-            "type": "vcs",
+            "type": "git",
             "url":  "git@github.com:astoimenov/framework.git"
         }
     ],
