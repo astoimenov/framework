@@ -28,7 +28,6 @@
     	"php-activerecord/php-activerecord": "1.1.*",
     	"phpmailer/phpmailer": "~5.2",
     	"nesbot/carbon": "~1.18",
-        "danielstjules/stringy": "~1.9",
         "vlucas/phpdotenv": "^2.0"
     },
     "require-dev": {
