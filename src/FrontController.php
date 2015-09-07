@@ -75,19 +75,19 @@ class FrontController {
             } else {
                 $this->action = $this->getDefaultAction();
             }
+
+            if (is_array($rc) && $rc['controllers']) {
+                if ($rc['controllers'][$currentController]['actions'][$this->action]) {
+                    $this->action = $rc['controllers'][$currentController]['actions'][$this->action];
+                }
+    
+                if (isset($rc['controllers'][$currentController]['uses'])) {
+                    $this->controller = $rc['controllers'][$currentController]['uses'];
+                }
+            }
         } else {
             $this->action = $this->getDefaultAction();
             $this->controller = $this->getDefaultController();
-        }
-
-        if (is_array($rc) && $rc['controllers']) {
-            if ($rc['controllers'][$currentController]['actions'][$this->action]) {
-                $this->action = $rc['controllers'][$currentController]['actions'][$this->action];
-            }
-
-            if (isset($rc['controllers'][$currentController]['uses'])) {
-                $this->controller = $rc['controllers'][$currentController]['uses'];
-            }
         }
 
         $input->setPost($this->router->getPost());
