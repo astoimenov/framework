@@ -9,7 +9,7 @@ class DefaultRouter implements IRouter {
     public function getUri() {
         $app = App::getInstance();
         $config = $app->getConfig();
-        $request = '.' . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $request = $_SERVER['SERVER_NAME'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         $requestHome = $config->app['root_path'] . '/';
 
