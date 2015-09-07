@@ -35,7 +35,7 @@ class Config {
     }
 
     public function __get($name) {
-        if (!$this->configArray[$name]) {
+        if (!isset($this->configArray[$name])) {
             $this->includeConfigFile($this->configFolder . $name . '.php');
         }
 
