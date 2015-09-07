@@ -2,7 +2,7 @@
 
 namespace LittleNinja;
 
-class App extends Container {
+class App {
 
     private static $instance = null;
     private $config = null;
