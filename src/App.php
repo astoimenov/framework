@@ -2,7 +2,8 @@
 
 namespace LittleNinja;
 
-class App {
+class App
+{
 
     private static $instance = null;
     private $config = null;
@@ -12,7 +13,8 @@ class App {
     private $dbConnections = array();
     private $session = null;
 
-    private function __construct() {
+    private function __construct()
+    {
         set_exception_handler(array($this, 'exceptionHandler'));
 
         include_once 'Loader.php';
@@ -24,7 +26,8 @@ class App {
         }
     }
 
-    public function run() {
+    public function run()
+    {
         if ($this->config->getConfigFolder() === null) {
             $this->setConfigFolder('../config');
         }
@@ -44,7 +47,7 @@ class App {
         if ($sess['autostart']) {
             if ($sess['type'] === 'native') {
                 $session = new Sessions\NativeSession(
-                    $sess['name'], $sess['lifetime'], $sess['path'], $sess['domain'], $sess['secure']
+                        $sess['name'], $sess['lifetime'], $sess['path'], $sess['domain'], $sess['secure']
                 );
             }
 
@@ -57,32 +60,38 @@ class App {
     /**
      * @param \LittleNinja\Sessions\ISession $session
      */
-    public function setSession(Sessions\ISession $session) {
+    public function setSession(Sessions\ISession $session)
+    {
         $this->session = $session;
     }
 
     /**
      * @return \LittleNinja\Sessions\ISession
      */
-    public function getSession() {
+    public function getSession()
+    {
         return $this->session;
     }
 
-    public function setConfigFolder($path) {
+    public function setConfigFolder($path)
+    {
         $this->config->setConfigFolder($path);
 
         return $this;
     }
 
-    public function getConfigFolder() {
+    public function getConfigFolder()
+    {
         return $this->configFolder;
     }
 
-    public function getRouter() {
+    public function getRouter()
+    {
         return $this->router;
     }
 
-    public function setRouter($router) {
+    public function setRouter($router)
+    {
         $this->router = $router;
 
         return $this;
@@ -91,11 +100,13 @@ class App {
     /**
      * @return \LittleNinja\Config
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         return $this->config;
     }
 
-    public function getDBConnection($connection = 'default') {
+    public function getDBConnection($connection = 'default')
+    {
         if (!$connection) {
             throw new \Exception('No connection indentifier provided', 500);
         }
@@ -111,16 +122,6 @@ class App {
 
         $conCnf = $cnf[$connection];
         $dbCon = new \PDO($conCnf['connection_uri'], $conCnf['username'], $conCnf['password'], $conCnf['pdo_options']);
-        /* $dbCon = mysqli_connect($conCnf['host'], $conCnf['user'], $conCnf['pass'], $conCnf['name']);
-          if (mysqli_connect_errno()) {
-          throw new \Exception('Database connection not established', 503);
-          }
-
-
-          if (!$dbCon->set_charset('utf8')) {
-          throw new \Exception('Error loading character set utf8', 503);
-          } */
-
         $this->dbConnections[$connection] = $dbCon;
 
         return $dbCon;
@@ -129,7 +130,8 @@ class App {
     /**
      * @return \LittleNinja\App
      */
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$instance === null) {
             self::$instance = new App();
         }
@@ -137,7 +139,8 @@ class App {
         return self::$instance;
     }
 
-    public function exceptionHandler(\Exception $ex) {
+    public function exceptionHandler(\Exception $ex)
+    {
         if ($this->config && $this->config->app['debug'] == true) {
             $whoops = new \Whoops\Run();
             $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
@@ -147,7 +150,8 @@ class App {
         }
     }
 
-    public function displayError($errorCode) {
+    public function displayError($errorCode)
+    {
         try {
             $view = View::getInstance();
             $view->render('errors.' . $errorCode);
@@ -158,7 +162,8 @@ class App {
         }
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
         if ($this->session !== null) {
             $this->session->saveSession();
         }

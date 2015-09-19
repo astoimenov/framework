@@ -2,20 +2,24 @@
 
 namespace LittleNinja;
 
-class Container implements \ArrayAccess {
+class Container implements \ArrayAccess
+{
 
     private $bindings = array();
     private $instances = array();
 
-    public function bind($key, $value, bool $singleton = false) {
+    public function bind($key, $value, bool $singleton = false)
+    {
         $this->bindings[$key] = compact('value', 'singleton');
     }
 
-    public function singleton($key, $value) {
+    public function singleton($key, $value)
+    {
         return $this->bind($key, $value, true);
     }
 
-    public function getBinding($key) {
+    public function getBinding($key)
+    {
         if (!array_key_exists($key, $this->bindings)) {
             return null;
         }
@@ -23,7 +27,8 @@ class Container implements \ArrayAccess {
         return $this->bindings[$key];
     }
 
-    public function isSingleton($key) {
+    public function isSingleton($key)
+    {
         $binding = $this->getBinding($key);
         if ($binding === null) {
             return false;
@@ -32,15 +37,18 @@ class Container implements \ArrayAccess {
         return $binding['singleton'];
     }
 
-    public function singletonResolved($key) {
+    public function singletonResolved($key)
+    {
         return array_key_exists($key, $this->instances);
     }
 
-    public function getSingletonInstance($key) {
+    public function getSingletonInstance($key)
+    {
         return $this->singletonResolved($key) ? $this->instances[$key] : null;
     }
 
-    private function buildDependencies(array $dependencies, array $args, $class) {
+    private function buildDependencies(array $dependencies, array $args, $class)
+    {
         foreach ($dependencies as $dependency) {
             if ($dependency->isOptional() || $dependency->isArray()) {
                 continue;
@@ -62,7 +70,8 @@ class Container implements \ArrayAccess {
         return $args;
     }
 
-    private function buildObject($class, array $args = array()) {
+    private function buildObject($class, array $args = array())
+    {
         $className = $class['value'];
         $reflector = new \ReflectionClass($className);
         if (!$reflector->isInstantiable()) {
@@ -81,7 +90,8 @@ class Container implements \ArrayAccess {
         return $object;
     }
 
-    private function prepareObject($key, $object) {
+    private function prepareObject($key, $object)
+    {
         if ($this->isSingleton($key)) {
             $this->instances[$key] = $object;
         }
@@ -89,7 +99,8 @@ class Container implements \ArrayAccess {
         return $object;
     }
 
-    public function resolve($key, array $args = array()) {
+    public function resolve($key, array $args = array())
+    {
         $class = $this->getBinding($key);
 
         if ($class === null) {
@@ -105,19 +116,23 @@ class Container implements \ArrayAccess {
         return $this->prepareObject($key, $object);
     }
 
-    public function offsetExists($offset) {
+    public function offsetExists($offset)
+    {
         return array_key_exists($offset, $this->bindings);
     }
 
-    public function offsetGet($offset) {
+    public function offsetGet($offset)
+    {
         return $this->resolve($offset);
     }
 
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value)
+    {
         return $this->bind($offset, $value);
     }
 
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset)
+    {
         unset($this->bindings[$offset]);
     }
 

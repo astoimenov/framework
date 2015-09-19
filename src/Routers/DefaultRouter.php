@@ -4,9 +4,11 @@ namespace LittleNinja\Routers;
 
 use LittleNinja\App;
 
-class DefaultRouter implements IRouter {
+class DefaultRouter implements IRouter
+{
 
-    public function getUri() {
+    public function getUri()
+    {
         $app = App::getInstance();
         $config = $app->getConfig();
         $request = $_SERVER['SERVER_NAME'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -24,7 +26,8 @@ class DefaultRouter implements IRouter {
         return null;
     }
 
-    public function getPost() {
+    public function getPost()
+    {
         return $_POST;
     }
 

@@ -2,7 +2,8 @@
 
 namespace LittleNinja;
 
-class FrontController {
+class FrontController
+{
 
     private static $instance = null;
     private $namespace = null;
@@ -10,14 +11,16 @@ class FrontController {
     private $action = null;
     private $router = null;
 
-    private function __construct() {
+    private function __construct()
+    {
 
     }
 
     /**
      * @return \LittleNinja\Routers\IRouter
      */
-    public function getRouter() {
+    public function getRouter()
+    {
         return $this->router;
     }
 
@@ -25,13 +28,15 @@ class FrontController {
      * @param \LittleNinja\Routers\IRouter $router
      * @return \LittleNinja\FrontController
      */
-    public function setRouter(Routers\IRouter $router) {
+    public function setRouter(Routers\IRouter $router)
+    {
         $this->router = $router;
 
         return $this;
     }
 
-    public function dispatch() {
+    public function dispatch()
+    {
         if ($this->router === null) {
             throw new \Exception('No valid router found', 500);
         }
@@ -42,8 +47,8 @@ class FrontController {
         if (is_array($routes) && count($routes) > 0) {
             foreach ($routes as $key => $value) {
                 if (stripos($uri, $key) === 0 &&
-                    ($uri === $key || stripos($uri, $key . '/') === 0) &&
-                    $value['namespace']
+                        ($uri === $key || stripos($uri, $key . '/') === 0) &&
+                        $value['namespace']
                 ) {
                     $this->namespace = $value['namespace'];
                     $uri = substr($uri, strlen($key) + 1);
@@ -80,7 +85,7 @@ class FrontController {
                 if ($rc['controllers'][$currentController]['actions'][$this->action]) {
                     $this->action = $rc['controllers'][$currentController]['actions'][$this->action];
                 }
-    
+
                 if (isset($rc['controllers'][$currentController]['uses'])) {
                     $this->controller = $rc['controllers'][$currentController]['uses'];
                 }
@@ -97,7 +102,8 @@ class FrontController {
         $newController->{$this->action}();
     }
 
-    private static function getDefaultController() {
+    private static function getDefaultController()
+    {
         $controller = App::getInstance()->getConfig()->defaults['controller'];
         if ($controller) {
             return $controller;
@@ -106,7 +112,8 @@ class FrontController {
         return 'Home';
     }
 
-    private static function getDefaultAction() {
+    private static function getDefaultAction()
+    {
         $action = App::getInstance()->getConfig()->defaults['action'];
         if ($action) {
             return $action;
@@ -118,7 +125,8 @@ class FrontController {
     /**
      * @return \LittleNinja\FrontController
      */
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$instance === null) {
             self::$instance = new FrontController();
         }

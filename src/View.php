@@ -2,7 +2,8 @@
 
 namespace LittleNinja;
 
-class View {
+class View
+{
 
     private static $instance = null;
     private $viewPath = null;
@@ -12,14 +13,16 @@ class View {
     private $layoutParts = array();
     private $layoutData = array();
 
-    private function __construct() {
+    private function __construct()
+    {
         $this->viewPath = App::getInstance()->getConfig()->app['views_path'];
         if ($this->viewPath === null) {
             $this->viewPath = realpath(__DIR__ . '/Views/');
         }
     }
 
-    public function setViewDirectory($path) {
+    public function setViewDirectory($path)
+    {
         $path = trim($path);
         if ($path) {
             $path = realpath($path) . DIRECTORY_SEPARATOR;
@@ -33,7 +36,8 @@ class View {
         }
     }
 
-    public function render($name, array $data = array(), $returnAsString = false) {
+    public function render($name, array $data = array(), $returnAsString = false)
+    {
         if (is_array($data)) {
             $this->data = array_merge($this->data, $data);
         }
@@ -54,11 +58,13 @@ class View {
         }
     }
 
-    public function getLayoutData($name) {
+    public function getLayoutData($name)
+    {
         return $this->layoutData[$name];
     }
 
-    public function includeFile($file) {
+    public function includeFile($file)
+    {
         if ($this->viewDir === null) {
             $this->setViewDirectory($this->viewPath);
         }
@@ -75,7 +81,8 @@ class View {
         return null;
     }
 
-    public function appendToLayout($key, $template) {
+    public function appendToLayout($key, $template)
+    {
         if ($key && $template) {
             $this->layoutParts[$key] = $template;
         } else {
@@ -83,18 +90,21 @@ class View {
         }
     }
 
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         $this->data[$name] = $value;
     }
 
-    public function __get($name) {
+    public function __get($name)
+    {
         return $this->data[$name];
     }
 
     /**
      * @return \LittleNinja\View
      */
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$instance === null) {
             self::$instance = new View();
         }

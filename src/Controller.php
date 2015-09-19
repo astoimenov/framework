@@ -2,7 +2,8 @@
 
 namespace LittleNinja;
 
-class Controller {
+class Controller
+{
 
     /**
      * @var \LittleNinja\App
@@ -24,7 +25,8 @@ class Controller {
      */
     protected $inputData;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->app = App::getInstance();
         $this->view = View::getInstance();
         $this->config = $this->app->getConfig();

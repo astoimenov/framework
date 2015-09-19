@@ -2,7 +2,8 @@
 
 namespace LittleNinja\Sessions;
 
-interface ISession {
+interface ISession
+{
 
     public function getSessionId();
 

@@ -2,18 +2,21 @@
 
 namespace LittleNinja;
 
-class InputData {
+class InputData
+{
 
     private static $instance = null;
     private $get = array();
     private $post = array();
     private $cookies = array();
 
-    private function __construct() {
+    private function __construct()
+    {
         $this->cookies = $_COOKIE;
     }
 
-    public function setGet($get) {
+    public function setGet($get)
+    {
         if (is_array($get)) {
             $this->get = $get;
         }
@@ -21,7 +24,8 @@ class InputData {
         return $this;
     }
 
-    public function setPost($post) {
+    public function setPost($post)
+    {
         if (is_array($post)) {
             $this->post = $post;
         }
@@ -29,19 +33,23 @@ class InputData {
         return $this;
     }
 
-    public function hasGet($id) {
+    public function hasGet($id)
+    {
         return array_key_exists($id, $this->get);
     }
 
-    public function hasPost($name) {
+    public function hasPost($name)
+    {
         return array_key_exists($name, $this->post);
     }
 
-    public function hasCookies($name) {
+    public function hasCookies($name)
+    {
         return array_key_exists($name, $this->cookies);
     }
 
-    public function get($id, $normalize = null, $default = null) {
+    public function get($id, $normalize = null, $default = null)
+    {
         if ($this->hasGet($id)) {
             if ($normalize !== null) {
                 return Common::normalize($this->get[$id], $normalize);
@@ -53,7 +61,8 @@ class InputData {
         return $default;
     }
 
-    public function post($name, $normalize = null, $default = null) {
+    public function post($name, $normalize = null, $default = null)
+    {
         if ($this->hasPost($name)) {
             if ($normalize !== null) {
                 return Common::normalize($this->post[$name], $normalize);
@@ -65,7 +74,8 @@ class InputData {
         return $default;
     }
 
-    public function cookies($name, $normalize = null, $default = null) {
+    public function cookies($name, $normalize = null, $default = null)
+    {
         if ($this->hasCookies($name)) {
             if ($normalize !== null) {
                 return Common::normalize($this->cookies[$name], $normalize);
@@ -80,7 +90,8 @@ class InputData {
     /**
      * @return \LittleNinja\InputData
      */
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$instance === null) {
             self::$instance = new InputData();
         }

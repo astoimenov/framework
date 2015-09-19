@@ -2,6 +2,7 @@
 
 namespace LittleNinja;
 
-class Auth {
+class Auth
+{
 
 }

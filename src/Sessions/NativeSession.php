@@ -2,9 +2,11 @@
 
 namespace LittleNinja\Sessions;
 
-class NativeSession implements ISession {
+class NativeSession implements ISession
+{
 
-    public function __construct($name, $lifetime = 3600, $path = null, $domain = null, $secure = false) {
+    public function __construct($name, $lifetime = 3600, $path = null, $domain = null, $secure = false)
+    {
         if (strlen($name) < 1) {
             $name = '_sess';
         }
@@ -14,23 +16,28 @@ class NativeSession implements ISession {
         session_start();
     }
 
-    public function getSessionId() {
+    public function getSessionId()
+    {
         session_id();
     }
 
-    public function saveSession() {
+    public function saveSession()
+    {
         session_write_close();
     }
 
-    public function destroySession() {
+    public function destroySession()
+    {
         session_destroy();
     }
 
-    public function __get($key) {
+    public function __get($key)
+    {
         return $_SESSION[$key];
     }
 
-    public function __set($key, $value) {
+    public function __set($key, $value)
+    {
         $_SESSION[$key] = $value;
     }
 

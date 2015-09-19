@@ -2,9 +2,11 @@
 
 namespace LittleNinja;
 
-class Redirect {
+class Redirect
+{
 
-    public static function home() {
+    public static function home()
+    {
         $app = App::getInstance();
         $config = $app->getConfig();
 
@@ -12,7 +14,8 @@ class Redirect {
         exit;
     }
 
-    public static function to($path) {
+    public static function to($path)
+    {
         $app = App::getInstance();
         $config = $app->getConfig();
 

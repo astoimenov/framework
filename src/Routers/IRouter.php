@@ -2,7 +2,8 @@
 
 namespace LittleNinja\Routers;
 
-interface IRouter {
+interface IRouter
+{
 
     public function getUri();
 

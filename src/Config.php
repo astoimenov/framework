@@ -2,21 +2,25 @@
 
 namespace LittleNinja;
 
-class Config {
+class Config
+{
 
     private static $instance = null;
     private $configArray = array();
     private $configFolder = null;
 
-    private function __construct() {
+    private function __construct()
+    {
 
     }
 
-    public function getConfigFolder() {
+    public function getConfigFolder()
+    {
         return $this->configFolder;
     }
 
-    public function setConfigFolder($folder) {
+    public function setConfigFolder($folder)
+    {
         if (!$folder) {
             throw new \Exception('Empty config folder path: ', 500);
         }
@@ -34,7 +38,8 @@ class Config {
         }
     }
 
-    public function __get($name) {
+    public function __get($name)
+    {
         if (!isset($this->configArray[$name])) {
             $this->includeConfigFile($this->configFolder . $name . '.php');
         }
@@ -46,7 +51,8 @@ class Config {
         return null;
     }
 
-    private function includeConfigFile($path) {
+    private function includeConfigFile($path)
+    {
         if (!$path) {
             throw new \Exception;
         }
@@ -60,7 +66,8 @@ class Config {
         }
     }
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$instance === null) {
             self::$instance = new Config();
         }
