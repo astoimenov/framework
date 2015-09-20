@@ -20,6 +20,10 @@ class JsonRPCRouter implements IRouter
         }
     }
 
+    /**
+     *
+     * @param array $routes
+     */
     public function setMethodMaps(array $routes)
     {
         if (is_array($routes)) {

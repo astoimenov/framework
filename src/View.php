@@ -36,6 +36,13 @@ class View
         }
     }
 
+    /**
+     *
+     * @param string $name
+     * @param array $data
+     * @param boolean $returnAsString
+     * @return type
+     */
     public function render($name, array $data = array(), $returnAsString = false)
     {
         if (is_array($data)) {

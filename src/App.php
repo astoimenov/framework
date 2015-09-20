@@ -90,7 +90,12 @@ class App
         return $this->router;
     }
 
-    public function setRouter($router)
+    /**
+     *
+     * @param \LittleNinja\Routers\IRouter $router
+     * @return \LittleNinja\App
+     */
+    public function setRouter(\LittleNinja\Routers\IRouter $router)
     {
         $this->router = $router;
 
@@ -105,6 +110,12 @@ class App
         return $this->config;
     }
 
+    /**
+     *
+     * @param string $connection
+     * @return \PDO
+     * @throws \Exception
+     */
     public function getDBConnection($connection = 'default')
     {
         if (!$connection) {

@@ -82,7 +82,7 @@ class FrontController
             }
 
             if (is_array($rc) && $rc['controllers']) {
-                if ($rc['controllers'][$currentController]['actions'][$this->action]) {
+                if (isset($rc['controllers'][$currentController]['actions'][$this->action])) {
                     $this->action = $rc['controllers'][$currentController]['actions'][$this->action];
                 }
 

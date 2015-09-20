@@ -26,9 +26,9 @@ class SimpleDB
     }
 
     /**
-     * @param type $sql
-     * @param type $params
-     * @param type $pdoOptions
+     * @param string $sql
+     * @param array $params
+     * @param array $pdoOptions
      * @return \GF\DB\SimpleDB
      */
     public function prepare($sql, array $params = array(), array $pdoOptions = array())
@@ -41,7 +41,7 @@ class SimpleDB
     }
 
     /**
-     * @param type $params
+     * @param array $params
      * @return \LittleNinja\DB\SimpleDB
      */
     public function execute(array $params = array())
