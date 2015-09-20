@@ -24,6 +24,12 @@ class App
         if ($this->config->getConfigFolder() === null) {
             $this->setConfigFolder('../config');
         }
+
+        if ($this->config && $this->config->app['debug'] == true) {
+            $whoops = new \Whoops\Run();
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+            $whoops->register();
+        }
     }
 
     public function run()
@@ -60,7 +66,7 @@ class App
     /**
      * @param \LittleNinja\Sessions\ISession $session
      */
-    public function setSession(Sessions\ISession $session)
+    public function setSession(\LittleNinja\Sessions\ISession $session)
     {
         $this->session = $session;
     }
@@ -90,12 +96,7 @@ class App
         return $this->router;
     }
 
-    /**
-     *
-     * @param \LittleNinja\Routers\IRouter $router
-     * @return \LittleNinja\App
-     */
-    public function setRouter(\LittleNinja\Routers\IRouter $router)
+    public function setRouter($router)
     {
         $this->router = $router;
 
@@ -110,19 +111,13 @@ class App
         return $this->config;
     }
 
-    /**
-     *
-     * @param string $connection
-     * @return \PDO
-     * @throws \Exception
-     */
     public function getDBConnection($connection = 'default')
     {
         if (!$connection) {
             throw new \Exception('No connection indentifier provided', 500);
         }
 
-        if ($this->dbConnections[$connection]) {
+        if (isset($this->dbConnections[$connection])) {
             return $this->dbConnections[$connection];
         }
 
@@ -152,11 +147,7 @@ class App
 
     public function exceptionHandler(\Exception $ex)
     {
-        if ($this->config && $this->config->app['debug'] == true) {
-            $whoops = new \Whoops\Run();
-            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
-            $whoops->register();
-        } else {
+        if ($this->config && $this->config->app['debug'] !== true) {
             $this->displayError($ex->getCode());
         }
     }
