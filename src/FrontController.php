@@ -105,21 +105,15 @@ class FrontController
     private static function getDefaultController()
     {
         $controller = App::getInstance()->getConfig()->defaults['controller'];
-        if ($controller) {
-            return $controller;
-        }
-
-        return 'Home';
+        
+        return $controller ?? 'Home';
     }
 
     private static function getDefaultAction()
     {
         $action = App::getInstance()->getConfig()->defaults['action'];
-        if ($action) {
-            return $action;
-        }
-
-        return 'index';
+        
+        return $action ?? 'index';
     }
 
     /**
