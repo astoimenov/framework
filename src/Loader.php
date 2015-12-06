@@ -18,7 +18,7 @@ class Loader
             if (strpos($class, $key) === 0) {
                 $file = str_replace('\\', DIRECTORY_SEPARATOR, $class);
                 $file = substr_replace($file, $value, 0, strlen($key));
-                $file = realpath($file);
+                $file = realpath($file . '.php');
                 if ($file && is_readable($file)) {
                     include $file . '.php';
                 } else {
