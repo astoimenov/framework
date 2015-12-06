@@ -13,7 +13,7 @@ class DefaultRouter implements IRouter
         $config = $app->getConfig();
         $request = $_SERVER['SERVER_NAME'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-        $requestHome = $config->app['root_path'] . '/';
+        $requestHome = $config->app['url'] . '/';
 
         if (!empty($request)) {
             if (strpos($request, $requestHome) === 0) {

@@ -20,7 +20,6 @@ class Loader
                 $file = substr_replace($file, $value, 0, strlen($key));
                 $file = realpath($file);
                 if ($file && is_readable($file)) {
-                    var_dump($file);
                     include $file . '.php';
                 } else {
                     throw new \Exception('File could not be included: ' . $file, 500);
