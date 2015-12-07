@@ -24,12 +24,6 @@ class App
         if ($this->config->getConfigFolder() === null) {
             $this->setConfigFolder('../config');
         }
-
-        if ($this->config && $this->config->app['debug'] == true) {
-            $whoops = new \Whoops\Run();
-            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
-            $whoops->register();
-        }
     }
 
     public function run()
@@ -90,12 +84,18 @@ class App
     {
         return $this->configFolder;
     }
-
+    
+    /**
+     * @return \LittleNinja\Routers\IRouter
+     */
     public function getRouter()
     {
         return $this->router;
     }
 
+    /**
+     * @param \LittleNinja\Routers\IRouter $router
+     */
     public function setRouter($router)
     {
         $this->router = $router;
@@ -111,6 +111,9 @@ class App
         return $this->config;
     }
 
+    /**
+     * @return \PDO
+     */
     public function getDBConnection($connection = 'default')
     {
         if (!$connection) {
@@ -147,8 +150,14 @@ class App
 
     public function exceptionHandler(\Exception $ex)
     {
-        if ($this->config && $this->config->app['debug'] !== true) {
-            $this->displayError($ex->getCode());
+        if ($this->config) {
+            if ($this->config->app['debug']) {
+                $whoops = new \Whoops\Run();
+                $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+                $whoops->register();
+            } else {
+                $this->displayError($ex->getCode());
+            }
         }
     }
 
