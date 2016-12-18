@@ -6,28 +6,30 @@
         "framework",
         "mvc"
     ],
-    "license": "GPL-2.0",
-    "authors": [
-        {
-            "name": "Alexander Stoimenov",
-            "email": "admin@astoimenov.eu"
-        }
-    ],
+    "license": "GPL-3.0",
+    "authors": [{
+        "name": "Alexander Stoimenov",
+        "email": "admin@astoimenov.eu"
+    }],
     "autoload": {
         "psr-4": {
             "LittleNinja\\": "src/"
-        }
+        },
+        "files": [
+            "src/Support/helpers.php"
+        ]
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url":  "git@github.com:astoimenov/framework.git"
-        }
-    ],
+    "repositories": [{
+        "type": "git",
+        "url": "git@github.com:astoimenov/framework.git"
+    }],
     "require": {
-    	"nesbot/carbon": "~1.18",
+        "nesbot/carbon": "~1.18",
         "danielstjules/stringy": "~1.9",
         "vlucas/phpdotenv": "^2.0",
         "filp/whoops": "^1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
     }
 }

@@ -4,14 +4,12 @@ namespace LittleNinja;
 
 class Config
 {
-
     private static $instance = null;
-    private $configArray = array();
+    private $configArray = [];
     private $configFolder = null;
 
     private function __construct()
     {
-
     }
 
     public function getConfigFolder()
@@ -27,34 +25,34 @@ class Config
 
         $configFolder = realpath($folder);
         if ($configFolder != false && is_dir($configFolder) && is_readable($configFolder)) {
-            $this->configArray = array();
-            $this->configFolder = $configFolder . DIRECTORY_SEPARATOR;
+            $this->configArray = [];
+            $this->configFolder = $configFolder.DIRECTORY_SEPARATOR;
             $namespaces = $this->app['namespaces'];
             if (is_array($namespaces)) {
                 Loader::registerNamespaces($namespaces);
             }
         } else {
-            throw new \Exception('Config folder read error: ' . $configFolder, 500);
+            throw new \Exception('Config folder read error: '.$configFolder, 500);
         }
     }
 
     public function __get($name)
     {
         if (!isset($this->configArray[$name])) {
-            $this->includeConfigFile($this->configFolder . $name . '.php');
+            $this->includeConfigFile($this->configFolder.$name.'.php');
         }
 
         if (array_key_exists($name, $this->configArray)) {
             return $this->configArray[$name];
         }
 
-        return null;
+        return;
     }
 
     private function includeConfigFile($path)
     {
         if (!$path) {
-            throw new \Exception;
+            throw new \Exception();
         }
 
         $file = realpath($path);
@@ -62,17 +60,16 @@ class Config
             $basename = explode('.php', basename($file))[0];
             $this->configArray[$basename] = include $file;
         } else {
-            throw new \Exception('Config file read error: ' . $path, 500);
+            throw new \Exception('Config file read error: '.$path, 500);
         }
     }
 
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = new Config();
+            self::$instance = new self();
         }
 
         return self::$instance;
     }
-
 }

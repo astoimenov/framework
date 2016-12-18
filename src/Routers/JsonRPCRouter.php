@@ -6,10 +6,9 @@ use LittleNinja\App;
 
 class JsonRPCRouter implements IRouter
 {
-
-    private $map = array();
+    private $map = [];
     private $requestId = null;
-    private $post = array();
+    private $post = [];
 
     public function __construct()
     {
@@ -21,7 +20,6 @@ class JsonRPCRouter implements IRouter
     }
 
     /**
-     *
      * @param array $routes
      */
     public function setMethodMaps(array $routes)
@@ -66,5 +64,4 @@ class JsonRPCRouter implements IRouter
     {
         return $this->post;
     }
-
 }

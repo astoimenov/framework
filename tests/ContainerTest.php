@@ -2,48 +2,51 @@
 
 require 'vendor/autoload.php';
 
-class ContainerTest extends PHPUnit_Framework_TestCase {
-
+class ContainerTest extends PHPUnit_Framework_TestCase
+{
     private $container = null;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->container = new LittleNinja\Container();
     }
 
-    public function testBindingObject() {
+    public function testBindingObject()
+    {
         $this->container->bind('foo', 'Bar');
 
-        $this->assertEquals('Bar', $this->container->getBinding('foo'));
+        $this->assertEquals('Bar', $this->container->getBinding('foo')['value']);
     }
 
-    public function testReturnsNullWhenBindingNotFound() {
+    public function testReturnsNullWhenBindingNotFound()
+    {
         $this->assertNull($this->container->getBinding('bar'));
     }
 
-    public function testResolveClassReturnsObject() {
-        $object = $this->container->resolve('Bar');
+    public function testResolveClassReturnsObject()
+    {
+        $object = app('bar');
 
         $this->assertInstanceOf('Bar', $object);
     }
 
-    public function testArrayAccessWorks() {
+    public function testArrayAccessWorks()
+    {
         $this->container['qux'] = 'Bar';
 
         $object = $this->container['qux'];
 
         $this->assertInstanceOf('Bar', $object);
     }
-
 }
 
-class Foo {
-
+class Foo
+{
 }
 
-class Bar {
-
-    public function __construct(Foo $foo) {
-
+class Bar
+{
+    public function __construct(Foo $foo)
+    {
     }
-
 }

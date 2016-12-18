@@ -6,14 +6,13 @@ use LittleNinja\App;
 
 class DefaultRouter implements IRouter
 {
-
     public function getUri()
     {
         $app = App::getInstance();
         $config = $app->getConfig();
-        $request = $_SERVER['SERVER_NAME'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $request = $_SERVER['SERVER_NAME'].parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-        $requestHome = $config->app['url'] . '/';
+        $requestHome = $config->app['url'].'/';
 
         if (!empty($request)) {
             if (strpos($request, $requestHome) === 0) {
@@ -23,12 +22,11 @@ class DefaultRouter implements IRouter
             }
         }
 
-        return null;
+        return;
     }
 
     public function getPost()
     {
         return $_POST;
     }
-
 }

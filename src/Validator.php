@@ -4,15 +4,15 @@ namespace LittleNinja;
 
 class Validator
 {
-
-    private $rules = array();
-    private $errors = array();
+    private $rules = [];
+    private $errors = [];
 
     /**
      * @param type $rule
      * @param type $value
      * @param type $params
      * @param type $name
+     *
      * @return \LittleNinja\Validator
      */
     public function setRule($rule, $value, $params = null, $name = null, $message = null)
@@ -27,7 +27,7 @@ class Validator
      */
     public function validate()
     {
-        $this->errors = array();
+        $this->errors = [];
         if (count($this->rules) > 0) {
             foreach ($this->rules as $rule) {
                 if (!$this->$rule['rule']($rule['value'], $rule['params'])) {
@@ -45,8 +45,7 @@ class Validator
     }
 
     /**
-     *
-     * @return Array
+     * @return array
      */
     public function errors()
     {
@@ -89,27 +88,27 @@ class Validator
 
     public static function min_length($value, $lenght)
     {
-        return (mb_strlen($value) >= $lenght);
+        return mb_strlen($value) >= $lenght;
     }
 
     public static function max_length($value, $lenght)
     {
-        return (mb_strlen($value) <= $lenght);
+        return mb_strlen($value) <= $lenght;
     }
 
     public static function exact_length($value, $lenght)
     {
-        return (mb_strlen($value) == $lenght);
+        return mb_strlen($value) == $lenght;
     }
 
     public static function gt($val1, $val2)
     {
-        return ($val1 > $val2);
+        return $val1 > $val2;
     }
 
     public static function lt($val1, $val2)
     {
-        return ($val1 < $val2);
+        return $val1 < $val2;
     }
 
     public static function alpha($value)
@@ -171,9 +170,8 @@ class Validator
     {
         if ($closure instanceof \Closure) {
             return (boolean) call_user_func($closure, $value);
-        } else {
-            throw new \Exception('Invalid validation function', 500);
         }
-    }
 
+        throw new \Exception('Invalid validation function', 500);
+    }
 }

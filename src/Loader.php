@@ -4,12 +4,10 @@ namespace LittleNinja;
 
 class Loader
 {
-
-    private static $namespaces = array();
+    private static $namespaces = [];
 
     private function __construct()
     {
-
     }
 
     private static function loadClass($class)
@@ -20,9 +18,9 @@ class Loader
                 $file = substr_replace($file, $value, 0, strlen($key));
                 $file = realpath($file);
                 if ($file && is_readable($file)) {
-                    include $file . '.php';
+                    include $file.'.php';
                 } else {
-                    throw new \Exception('File could not be included: ' . $file, 500);
+                    throw new \Exception('File could not be included: '.$file, 500);
                 }
 
                 break;
@@ -50,16 +48,16 @@ class Loader
 
             $path = realpath($path);
             if ($path && is_dir($path) && is_readable($path)) {
-                self::$namespaces[$namespace . '\\'] = $path . DIRECTORY_SEPARATOR;
+                self::$namespaces[$namespace.'\\'] = $path.DIRECTORY_SEPARATOR;
             } else {
-                throw new \Exception('Namespace directory read error: ' . $path, 500);
+                throw new \Exception('Namespace directory read error: '.$path, 500);
             }
         } else {
-            throw new \Exception('Invalid namespace: ' . $namespace, 500);
+            throw new \Exception('Invalid namespace: '.$namespace, 500);
         }
     }
 
-    public static function registerNamespaces(array $namespaces = array())
+    public static function registerNamespaces(array $namespaces = [])
     {
         if (is_array($namespaces)) {
             foreach ($namespaces as $key => $value) {
@@ -69,5 +67,4 @@ class Loader
             throw new \Exception('Invalid namespaces', 500);
         }
     }
-
 }

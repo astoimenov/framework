@@ -2,13 +2,14 @@
 
 namespace LittleNinja;
 
-class InputData
-{
+use LittleNinja\Support\Str;
 
+class Request
+{
     private static $instance = null;
-    private $get = array();
-    private $post = array();
-    private $cookies = array();
+    private $get = [];
+    private $post = [];
+    private $cookies = [];
 
     private function __construct()
     {
@@ -52,7 +53,7 @@ class InputData
     {
         if ($this->hasGet($id)) {
             if ($normalize !== null) {
-                return Common::normalize($this->get[$id], $normalize);
+                return Str::normalize($this->get[$id], $normalize);
             }
 
             return $this->get[$id];
@@ -65,7 +66,7 @@ class InputData
     {
         if ($this->hasPost($name)) {
             if ($normalize !== null) {
-                return Common::normalize($this->post[$name], $normalize);
+                return Str::normalize($this->post[$name], $normalize);
             }
 
             return $this->post[$name];
@@ -78,7 +79,7 @@ class InputData
     {
         if ($this->hasCookies($name)) {
             if ($normalize !== null) {
-                return Common::normalize($this->cookies[$name], $normalize);
+                return Str::normalize($this->cookies[$name], $normalize);
             }
 
             return $this->cookies[$name];
@@ -93,10 +94,9 @@ class InputData
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = new InputData();
+            self::$instance = new self();
         }
 
         return self::$instance;
     }
-
 }

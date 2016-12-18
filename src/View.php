@@ -4,20 +4,19 @@ namespace LittleNinja;
 
 class View
 {
-
     private static $instance = null;
     private $viewPath = null;
     private $viewDir = null;
-    private $data = array();
+    private $data = [];
     private $extension = '.php';
-    private $layoutParts = array();
-    private $layoutData = array();
+    private $layoutParts = [];
+    private $layoutData = [];
 
     private function __construct()
     {
         $this->viewPath = App::getInstance()->getConfig()->app['views_path'];
         if ($this->viewPath === null) {
-            $this->viewPath = realpath(__DIR__ . '/Views/');
+            $this->viewPath = realpath(__DIR__.'/Views/');
         }
     }
 
@@ -25,7 +24,7 @@ class View
     {
         $path = trim($path);
         if ($path) {
-            $path = realpath($path) . DIRECTORY_SEPARATOR;
+            $path = realpath($path).DIRECTORY_SEPARATOR;
             if (is_dir($path) && is_readable($path)) {
                 $this->viewDir = $path;
             } else {
@@ -37,13 +36,13 @@ class View
     }
 
     /**
-     *
      * @param string $name
-     * @param array $data
-     * @param boolean $returnAsString
+     * @param array  $data
+     * @param bool   $returnAsString
+     *
      * @return type
      */
-    public function render($name, array $data = array(), $returnAsString = false)
+    public function render($name, array $data = [], $returnAsString = false)
     {
         if (is_array($data)) {
             $this->data = array_merge($this->data, $data);
@@ -76,16 +75,17 @@ class View
             $this->setViewDirectory($this->viewPath);
         }
 
-        $_fl = $this->viewDir . str_replace('.', DIRECTORY_SEPARATOR, $file) . $this->extension;
+        $_fl = $this->viewDir.str_replace('.', DIRECTORY_SEPARATOR, $file).$this->extension;
         if (file_exists($_fl) && is_readable($_fl)) {
             ob_start();
             include $_fl;
+
             return ob_get_clean();
         } else {
-            throw new \Exception('View ' . $file . ' cannot be included', 500);
+            throw new \Exception('View '.$file.' cannot be included', 500);
         }
 
-        return null;
+        return;
     }
 
     public function appendToLayout($key, $template)
@@ -113,10 +113,9 @@ class View
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = new View();
+            self::$instance = new self();
         }
 
         return self::$instance;
     }
-
 }

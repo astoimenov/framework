@@ -6,11 +6,10 @@ use LittleNinja\App;
 
 class SimpleDB
 {
-
     private $db = null;
     protected $connection = 'default';
     private $stmt = null;
-    private $params = array();
+    private $params = [];
     private $sql;
 
     public function __construct($connection = null)
@@ -27,11 +26,12 @@ class SimpleDB
 
     /**
      * @param string $sql
-     * @param array $params
-     * @param array $pdoOptions
+     * @param array  $params
+     * @param array  $pdoOptions
+     *
      * @return \GF\DB\SimpleDB
      */
-    public function prepare($sql, array $params = array(), array $pdoOptions = array())
+    public function prepare($sql, array $params = [], array $pdoOptions = [])
     {
         $this->stmt = $this->db->prepare($sql, $pdoOptions);
         $this->params = $params;
@@ -42,9 +42,10 @@ class SimpleDB
 
     /**
      * @param array $params
+     *
      * @return \LittleNinja\DB\SimpleDB
      */
-    public function execute(array $params = array())
+    public function execute(array $params = [])
     {
         if ($params) {
             $this->params = $params;
@@ -119,5 +120,4 @@ class SimpleDB
     {
         return $this->stmt;
     }
-
 }

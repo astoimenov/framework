@@ -4,7 +4,6 @@ namespace LittleNinja\Sessions;
 
 interface ISession
 {
-
     public function getSessionId();
 
     public function saveSession();

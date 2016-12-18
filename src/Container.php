@@ -4,9 +4,9 @@ namespace LittleNinja;
 
 class Container implements \ArrayAccess
 {
-
-    private $bindings = array();
-    private $instances = array();
+    private static $instance = null;
+    private $bindings = [];
+    private $instances = [];
 
     public function bind($key, $value, bool $singleton = false)
     {
@@ -21,7 +21,7 @@ class Container implements \ArrayAccess
     public function getBinding($key)
     {
         if (!array_key_exists($key, $this->bindings)) {
-            return null;
+            return;
         }
 
         return $this->bindings[$key];
@@ -70,7 +70,7 @@ class Container implements \ArrayAccess
         return $args;
     }
 
-    private function buildObject($class, array $args = array())
+    private function buildObject(array $class, array $args = [])
     {
         $className = $class['value'];
         $reflector = new \ReflectionClass($className);
@@ -99,12 +99,12 @@ class Container implements \ArrayAccess
         return $object;
     }
 
-    public function resolve($key, array $args = array())
+    public function resolve($key, array $args = [])
     {
         $class = $this->getBinding($key);
 
         if ($class === null) {
-            $class = $key;
+            $class['value'] = $key;
         }
 
         if ($this->isSingleton($key) && $this->sigletonResolved($key)) {
@@ -136,4 +136,15 @@ class Container implements \ArrayAccess
         unset($this->bindings[$offset]);
     }
 
+    /**
+     * @return \LittleNinja\Container
+     */
+    public static function getInstance()
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
 }

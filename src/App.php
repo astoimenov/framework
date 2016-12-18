@@ -2,15 +2,16 @@
 
 namespace LittleNinja;
 
+use LittleNinja\Http\Response;
+
 class App
 {
-
     private static $instance = null;
     private $config = null;
     private $configFolder;
     private $frontController = null;
     private $router = null;
-    private $dbConnections = array();
+    private $dbConnections = [];
     private $session = null;
 
     private function __construct()
@@ -139,7 +140,7 @@ class App
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = new App();
+            self::$instance = new self();
         }
 
         return self::$instance;
@@ -156,11 +157,9 @@ class App
     {
         try {
             $view = View::getInstance();
-            $view->render('errors.' . $errorCode);
+            $view->render('errors.'.$errorCode);
         } catch (\Exception $ex) {
-            Common::headerStatus($errorCode);
-            echo '<h1>Error: ' . $errorCode . '</h1>';
-            exit();
+            return Response::create(Response::statusTexts[$errorCode], $errorCode);
         }
     }
 
@@ -170,5 +169,4 @@ class App
             $this->session->saveSession();
         }
     }
-
 }

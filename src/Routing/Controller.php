@@ -1,10 +1,9 @@
 <?php
 
-namespace LittleNinja;
+namespace LittleNinja\Routing;
 
 class Controller
 {
-
     /**
      * @var \LittleNinja\App
      */
@@ -32,5 +31,4 @@ class Controller
         $this->config = $this->app->getConfig();
         $this->inputData = InputData::getInstance();
     }
-
 }
